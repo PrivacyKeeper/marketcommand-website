@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import Image from 'next/image'
@@ -10,13 +10,6 @@ import {
   BarChart3, Map, ClipboardCheck, CalendarDays, Bell, Layers,
   DollarSign, TrendingUp, Eye, Lock, Sparkles, Target
 } from 'lucide-react'
-
-const HERO_IMG = 'https://cdn.abacus.ai/images/25faca31-cd0c-45ee-9167-adaa9c6b42bd.png'
-const FARMERS_IMG = 'https://cdn.abacus.ai/images/a6127a22-361a-4403-88e8-264d4172884d.png'
-const BOOTH_LAYOUT_IMG = 'https://cdn.abacus.ai/images/e1630e5d-9d49-4725-813e-074618e0ac76.png'
-const VENDOR_BOOTH_IMG = 'https://cdn.abacus.ai/images/9c83a3ee-6b21-4b0f-ac22-2ae3ff62082f.png'
-const ORGANIZER_IMG = 'https://cdn.abacus.ai/images/7713ede7-0161-4dbe-a6ef-ca6f7fc16ae3.png'
-const DOCUMENTS_IMG = 'https://cdn.abacus.ai/images/474c34a1-905c-4165-b721-2c77a97ac6b5.png'
 
 /* ──────── Animated counter ──────── */
 function AnimatedNumber({ target, suffix = '', prefix = '' }: { target: number; suffix?: string; prefix?: string }) {
@@ -80,57 +73,53 @@ function Header() {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'
+      scrolled ? 'bg-gray-900/95 backdrop-blur-md shadow-lg shadow-black/20' : 'bg-transparent'
     }`}>
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex items-center justify-between h-16 sm:h-20">
-        {/* Logo */}
         <a href="#" className="flex items-center gap-2">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
             <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </div>
           <span className="font-display text-lg sm:text-xl font-bold tracking-tight">
-            <span className="text-teal-700">Market</span>
-            <span className="text-orange-500">Command</span>
+            <span className="text-white">Market</span>
+            <span className="text-amber-400">Command</span>
           </span>
         </a>
 
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1">
           {navItems?.map((item: any) => (
             <a
               key={item?.href ?? ''}
               href={item?.href ?? '#'}
-              className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-teal-700 rounded-lg hover:bg-teal-50 transition-colors"
+              className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
             >
               {item?.label ?? ''}
             </a>
           ))}
           <a
             href="#get-started"
-            className="ml-3 px-5 py-2.5 text-sm font-semibold text-white bg-teal-600 rounded-full hover:bg-teal-700 transition-all hover:shadow-lg hover:shadow-teal-200"
+            className="ml-3 px-5 py-2.5 text-sm font-semibold text-gray-900 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full hover:from-amber-300 hover:to-orange-300 transition-all hover:shadow-lg hover:shadow-amber-400/30"
           >
             Get Early Access
           </a>
         </nav>
 
-        {/* Mobile menu button */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors text-white"
           aria-label="Toggle menu"
         >
           {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-t overflow-hidden"
+            className="md:hidden bg-gray-900 border-t border-white/10 overflow-hidden"
           >
             <div className="px-4 py-4 space-y-1">
               {navItems?.map((item: any) => (
@@ -138,7 +127,7 @@ function Header() {
                   key={item?.href ?? ''}
                   href={item?.href ?? '#'}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-teal-50 hover:text-teal-700 rounded-lg transition-colors"
+                  className="block px-4 py-3 text-sm font-medium text-gray-300 hover:bg-white/10 hover:text-white rounded-lg transition-colors"
                 >
                   {item?.label ?? ''}
                 </a>
@@ -146,7 +135,7 @@ function Header() {
               <a
                 href="#get-started"
                 onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3 mt-2 text-sm font-semibold text-white text-center bg-teal-600 rounded-full hover:bg-teal-700 transition-colors"
+                className="block px-4 py-3 mt-2 text-sm font-semibold text-gray-900 text-center bg-gradient-to-r from-amber-400 to-orange-400 rounded-full"
               >
                 Get Early Access
               </a>
@@ -165,16 +154,15 @@ function HeroSection() {
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Background image with parallax */}
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         <Image
-          src={HERO_IMG}
-          alt="Vibrant street fair with vendor booths and crowds of shoppers"
+          src="/images/street-market.jpg"
+          alt="Vibrant street market with vendor booths and mountains in the background"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/85 via-gray-900/70 to-gray-900/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/75 to-gray-900/50" />
       </motion.div>
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 py-32 sm:py-40">
@@ -184,26 +172,26 @@ function HeroSection() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="max-w-2xl"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 mb-6">
-            <Sparkles className="w-4 h-4 text-teal-300" />
-            <span className="text-sm font-medium text-teal-200">Now in Early Access</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 backdrop-blur-sm border border-emerald-400/30 mb-6">
+            <Sparkles className="w-4 h-4 text-emerald-300" />
+            <span className="text-sm font-medium text-emerald-200">Now in Early Access</span>
           </div>
 
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
-            The Industry Standard for{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-orange-300">
+            The Future of{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-300 to-amber-300">
               Market Management
             </span>
           </h1>
 
           <p className="text-lg sm:text-xl text-gray-300 leading-relaxed mb-8 max-w-xl">
-            One platform connecting street fair organizers and vendors. Intelligent booth mapping, automated document collection, and effortless event management.
+            The all-in-one platform for street fairs, farmers markets, and county fairs. Intelligent booth mapping, automated document collection, and effortless event management.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
             <a
               href="#get-started"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold text-white bg-teal-500 rounded-full hover:bg-teal-400 transition-all hover:shadow-xl hover:shadow-teal-500/25 group"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold text-gray-900 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full hover:from-amber-300 hover:to-orange-300 transition-all hover:shadow-xl hover:shadow-amber-400/25 group"
             >
               Get Early Access
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -218,12 +206,12 @@ function HeroSection() {
 
           <div className="flex items-center gap-8 mt-10 pt-8 border-t border-white/10">
             <div>
-              <div className="text-2xl font-bold text-white">Free</div>
+              <div className="text-2xl font-bold text-emerald-400">Free</div>
               <div className="text-sm text-gray-400">For Vendors</div>
             </div>
             <div className="w-px h-10 bg-white/15" />
             <div>
-              <div className="text-2xl font-bold text-white">$59<span className="text-sm font-normal text-gray-400">/mo</span></div>
+              <div className="text-2xl font-bold text-amber-400">$59<span className="text-sm font-normal text-gray-400">/mo</span></div>
               <div className="text-sm text-gray-400">For Organizers</div>
             </div>
             <div className="w-px h-10 bg-white/15" />
@@ -241,33 +229,33 @@ function HeroSection() {
 /* ──────── Social proof strip ──────── */
 function SocialProofStrip() {
   return (
-    <section className="bg-gray-50 border-y">
+    <section className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-10">
         <FadeIn>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl sm:text-4xl font-bold text-teal-700">
+              <div className="text-3xl sm:text-4xl font-bold text-white">
                 <AnimatedNumber target={500} suffix="+" />
               </div>
-              <p className="text-sm text-gray-500 mt-1">Events Managed</p>
+              <p className="text-sm text-emerald-100 mt-1">Events Managed</p>
             </div>
             <div>
-              <div className="text-3xl sm:text-4xl font-bold text-teal-700">
+              <div className="text-3xl sm:text-4xl font-bold text-white">
                 <AnimatedNumber target={10000} suffix="+" />
               </div>
-              <p className="text-sm text-gray-500 mt-1">Vendor Applications</p>
+              <p className="text-sm text-emerald-100 mt-1">Vendor Applications</p>
             </div>
             <div>
-              <div className="text-3xl sm:text-4xl font-bold text-teal-700">
+              <div className="text-3xl sm:text-4xl font-bold text-white">
                 <AnimatedNumber target={95} suffix="%" />
               </div>
-              <p className="text-sm text-gray-500 mt-1">Satisfaction Rate</p>
+              <p className="text-sm text-emerald-100 mt-1">Satisfaction Rate</p>
             </div>
             <div>
-              <div className="text-3xl sm:text-4xl font-bold text-teal-700">
+              <div className="text-3xl sm:text-4xl font-bold text-white">
                 <AnimatedNumber target={75} suffix="%" />
               </div>
-              <p className="text-sm text-gray-500 mt-1">Time Saved</p>
+              <p className="text-sm text-emerald-100 mt-1">Time Saved</p>
             </div>
           </div>
         </FadeIn>
@@ -283,52 +271,52 @@ function FeaturesSection() {
       icon: <Map className="w-6 h-6" />,
       title: 'Intelligent Booth Mapping',
       description: 'Street overlay technology shows exact booth positions. Organizers see their entire event layout on a real map.',
-      color: 'bg-teal-100 text-teal-700',
+      gradient: 'from-emerald-500 to-teal-600',
     },
     {
       icon: <Shield className="w-6 h-6" />,
       title: 'Smart Vendor Placement',
       description: 'Automatic conflict detection prevents competing vendors from being placed side-by-side. No more two hot sauce booths next to each other.',
-      color: 'bg-orange-100 text-orange-600',
+      gradient: 'from-amber-500 to-orange-600',
     },
     {
       icon: <FileText className="w-6 h-6" />,
       title: 'Automated Document Collection',
       description: 'Permits, insurance certificates, and business licenses collected and stored digitally. No more chasing paperwork.',
-      color: 'bg-blue-100 text-blue-600',
+      gradient: 'from-blue-500 to-indigo-600',
     },
     {
       icon: <Send className="w-6 h-6" />,
       title: 'One-Tap Applications',
       description: 'Vendors apply to events with a single tap. All their documents and info are already on file and ready to go.',
-      color: 'bg-purple-100 text-purple-600',
+      gradient: 'from-purple-500 to-violet-600',
     },
     {
       icon: <BarChart3 className="w-6 h-6" />,
       title: 'End-of-Event Reporting',
       description: 'Comprehensive reports generated automatically. Track revenue, attendance, vendor performance, and more.',
-      color: 'bg-emerald-100 text-emerald-600',
+      gradient: 'from-rose-500 to-pink-600',
     },
     {
       icon: <Smartphone className="w-6 h-6" />,
       title: 'Mobile-First Design',
       description: 'Built for on-the-go management. Everything from booth setup to vendor check-in works beautifully on any device.',
-      color: 'bg-rose-100 text-rose-600',
+      gradient: 'from-cyan-500 to-blue-600',
     },
   ]
 
   return (
-    <section id="features" className="py-20 sm:py-28">
+    <section id="features" className="py-20 sm:py-28 bg-gray-900">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <FadeIn className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-medium mb-4">
             <Zap className="w-4 h-4" />
             Powerful Features
           </div>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            Everything to run a <span className="text-teal-600">successful</span> market
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+            Everything to run a <span className="text-emerald-400">successful</span> market
           </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             From booth mapping to document management, MarketCommand handles the complexity so organizers and vendors can focus on what matters.
           </p>
         </FadeIn>
@@ -336,12 +324,12 @@ function FeaturesSection() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features?.map((f: any, i: number) => (
             <FadeIn key={i} delay={i * 0.08}>
-              <div className="group p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-xl hover:shadow-gray-100 transition-all duration-300 hover:-translate-y-1 h-full">
-                <div className={`w-12 h-12 rounded-xl ${f?.color ?? 'bg-gray-100 text-gray-600'} flex items-center justify-center mb-4`}>
+              <div className="group p-6 rounded-2xl bg-gray-800/50 border border-gray-700/50 hover:border-gray-600 hover:bg-gray-800 transition-all duration-300 hover:-translate-y-1 h-full">
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${f?.gradient} flex items-center justify-center mb-4 text-white shadow-lg`}>
                   {f?.icon}
                 </div>
-                <h3 className="font-display text-lg font-semibold mb-2">{f?.title ?? ''}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{f?.description ?? ''}</p>
+                <h3 className="font-display text-lg font-semibold text-white mb-2">{f?.title ?? ''}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{f?.description ?? ''}</p>
               </div>
             </FadeIn>
           ))}
@@ -354,18 +342,18 @@ function FeaturesSection() {
 /* ──────── Booth Mapping showcase ──────── */
 function BoothMappingSection() {
   return (
-    <section className="py-20 sm:py-28 bg-gray-50">
+    <section className="py-20 sm:py-28 bg-gradient-to-b from-gray-900 to-gray-800">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <FadeIn>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-sm font-medium mb-4">
               <Map className="w-4 h-4" />
               Booth Mapping Technology
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-6">
-              See your entire event <span className="text-teal-600">before</span> setup day
+            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white mb-6">
+              See your entire event <span className="text-amber-400">before</span> setup day
             </h2>
-            <p className="text-gray-500 text-lg mb-8 leading-relaxed">
+            <p className="text-gray-400 text-lg mb-8 leading-relaxed">
               MarketCommand&apos;s intelligent booth mapping overlays vendor positions directly onto street views. Know exactly where every booth goes — down to the square foot.
             </p>
             <div className="space-y-4">
@@ -376,36 +364,35 @@ function BoothMappingSection() {
                 { icon: <Layers className="w-5 h-5" />, text: 'Support for multi-zone events and complex layouts' },
               ]?.map((item: any, i: number) => (
                 <div key={i} className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-teal-100 text-teal-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 mt-0.5">
                     {item?.icon}
                   </div>
-                  <span className="text-gray-700 font-medium">{item?.text ?? ''}</span>
+                  <span className="text-gray-300 font-medium">{item?.text ?? ''}</span>
                 </div>
               ))}
             </div>
           </FadeIn>
 
           <FadeIn delay={0.2}>
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-gray-200">
-              <div className="aspect-video relative bg-gray-200">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/40 border border-gray-700/50">
+              <div className="aspect-video relative bg-gray-700">
                 <Image
-                  src={BOOTH_LAYOUT_IMG}
-                  alt="Aerial view of organized vendor booth layout at a street fair showing grid pattern"
+                  src="/images/market-illustration.png"
+                  alt="Illustration of organized market booth layout with vendors and shoppers"
                   fill
                   className="object-cover"
                 />
               </div>
-              {/* Overlay mockup elements */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4">
-                <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+                <div className="bg-gray-900/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-700/50">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-semibold text-gray-800">Downtown Street Fair Layout</span>
-                    <span className="text-xs px-2 py-1 rounded-full bg-teal-100 text-teal-700 font-medium">48 booths</span>
+                    <span className="text-sm font-semibold text-white">Downtown Street Fair Layout</span>
+                    <span className="text-xs px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-medium">48 booths</span>
                   </div>
-                  <div className="flex gap-3 text-xs text-gray-500">
-                    <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-teal-500"></span> Assigned</span>
-                    <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-400"></span> Available</span>
+                  <div className="flex gap-3 text-xs text-gray-400">
+                    <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500"></span> Assigned</span>
+                    <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400"></span> Available</span>
                     <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-400"></span> Conflict</span>
                   </div>
                 </div>
@@ -430,41 +417,46 @@ function OrganizersSection() {
   ]
 
   return (
-    <section id="organizers" className="py-20 sm:py-28">
+    <section id="organizers" className="py-20 sm:py-28 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <FadeIn delay={0.1}>
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-gray-200">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-orange-200/50">
               <div className="aspect-[4/3] relative bg-gray-200">
                 <Image
-                  src={ORGANIZER_IMG}
-                  alt="Event organizer using a tablet to manage vendors at a street fair"
+                  src="/images/outdoor-market.jpg"
+                  alt="Colorful outdoor market with vendor tents and shoppers browsing plants and crafts"
                   fill
                   className="object-cover"
                 />
+              </div>
+              <div className="absolute top-4 left-4">
+                <div className="bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                  $59/month
+                </div>
               </div>
             </div>
           </FadeIn>
 
           <FadeIn>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-orange-600 text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm font-medium mb-4">
               <Users className="w-4 h-4" />
               For Event Organizers
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 mb-4">
               Run events like a <span className="text-orange-500">pro</span>
             </h2>
-            <p className="text-gray-500 text-lg mb-8">
+            <p className="text-gray-600 text-lg mb-8">
               Stop juggling spreadsheets, phone calls, and paper applications. MarketCommand puts everything in one place.
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {benefits?.map((b: any, i: number) => (
-                <div key={i} className="flex items-start gap-3 p-3 rounded-xl hover:bg-orange-50/50 transition-colors">
-                  <div className="w-9 h-9 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center flex-shrink-0">
+                <div key={i} className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/70 transition-colors">
+                  <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-orange-400 to-amber-500 text-white flex items-center justify-center flex-shrink-0 shadow-md">
                     {b?.icon}
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm mb-0.5">{b?.title ?? ''}</h4>
+                    <h4 className="font-semibold text-sm text-gray-900 mb-0.5">{b?.title ?? ''}</h4>
                     <p className="text-xs text-gray-500 leading-relaxed">{b?.desc ?? ''}</p>
                   </div>
                 </div>
@@ -489,28 +481,28 @@ function VendorsSection() {
   ]
 
   return (
-    <section id="vendors" className="py-20 sm:py-28 bg-gray-50">
+    <section id="vendors" className="py-20 sm:py-28 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <FadeIn>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-sm font-medium mb-4">
               <Star className="w-4 h-4" />
               For Vendors — Completely Free
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Focus on selling, not <span className="text-teal-600">paperwork</span>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 mb-4">
+              Focus on selling, not <span className="text-emerald-600">paperwork</span>
             </h2>
-            <p className="text-gray-500 text-lg mb-8">
+            <p className="text-gray-600 text-lg mb-8">
               MarketCommand handles the logistics so vendors can focus on what they do best — running their business.
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {benefits?.map((b: any, i: number) => (
-                <div key={i} className="flex items-start gap-3 p-3 rounded-xl hover:bg-teal-50/50 transition-colors">
-                  <div className="w-9 h-9 rounded-lg bg-teal-100 text-teal-600 flex items-center justify-center flex-shrink-0">
+                <div key={i} className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/70 transition-colors">
+                  <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500 text-white flex items-center justify-center flex-shrink-0 shadow-md">
                     {b?.icon}
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm mb-0.5">{b?.title ?? ''}</h4>
+                    <h4 className="font-semibold text-sm text-gray-900 mb-0.5">{b?.title ?? ''}</h4>
                     <p className="text-xs text-gray-500 leading-relaxed">{b?.desc ?? ''}</p>
                   </div>
                 </div>
@@ -519,17 +511,17 @@ function VendorsSection() {
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-gray-200">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-emerald-200/50">
               <div className="aspect-[4/3] relative bg-gray-200">
                 <Image
-                  src={VENDOR_BOOTH_IMG}
-                  alt="Vendor at a farmers market booth interacting with customers"
+                  src="/images/farmers-market-sign.jpg"
+                  alt="Rustic Farmers Market sign showing fresh produce availability"
                   fill
                   className="object-cover"
                 />
               </div>
               <div className="absolute top-4 right-4">
-                <div className="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                <div className="bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
                   FREE Forever
                 </div>
               </div>
@@ -544,34 +536,33 @@ function VendorsSection() {
 /* ──────── Pricing ──────── */
 function PricingSection() {
   return (
-    <section id="pricing" className="py-20 sm:py-28">
+    <section id="pricing" className="py-20 sm:py-28 bg-gray-900">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <FadeIn className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-sm font-medium mb-4">
             <DollarSign className="w-4 h-4" />
             Simple Pricing
           </div>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            Transparent pricing, no <span className="text-teal-600">surprises</span>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+            Transparent pricing, no <span className="text-amber-400">surprises</span>
           </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             Simple, straightforward pricing that works for events of any size.
           </p>
         </FadeIn>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Vendor plan */}
           <FadeIn>
-            <div className="relative rounded-2xl bg-white border-2 border-gray-100 p-8 hover:shadow-xl hover:shadow-gray-100 transition-all duration-300 h-full">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-bold mb-6">
+            <div className="relative rounded-2xl bg-gray-800 border border-gray-700 p-8 hover:border-emerald-500/50 transition-all duration-300 h-full">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold mb-6">
                 <Star className="w-4 h-4" />
                 Best Value
               </div>
-              <h3 className="font-display text-2xl font-bold mb-1">Vendors</h3>
+              <h3 className="font-display text-2xl font-bold text-white mb-1">Vendors</h3>
               <div className="flex items-baseline gap-1 mb-2">
-                <span className="font-display text-5xl font-extrabold text-teal-600">Free</span>
+                <span className="font-display text-5xl font-extrabold text-emerald-400">Free</span>
               </div>
-              <p className="text-gray-500 mb-8">Always free. No credit card required.</p>
+              <p className="text-gray-400 mb-8">Always free. No credit card required.</p>
               <ul className="space-y-3 mb-8">
                 {[
                   'Digital document storage vault',
@@ -582,24 +573,23 @@ function PricingSection() {
                   'Push notification updates',
                   'Profile & portfolio management',
                 ]?.map((item: string, i: number) => (
-                  <li key={i} className="flex items-center gap-3 text-sm text-gray-600">
-                    <CheckCircle2 className="w-5 h-5 text-teal-500 flex-shrink-0" />
+                  <li key={i} className="flex items-center gap-3 text-sm text-gray-300">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
               </ul>
               <a
                 href="#get-started"
-                className="block w-full py-3 px-6 text-center font-semibold text-teal-700 bg-teal-50 rounded-full hover:bg-teal-100 transition-colors"
+                className="block w-full py-3 px-6 text-center font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 rounded-full hover:bg-emerald-500/20 transition-colors"
               >
                 Sign Up Free
               </a>
             </div>
           </FadeIn>
 
-          {/* Organizer plan */}
           <FadeIn delay={0.15}>
-            <div className="relative rounded-2xl bg-gradient-to-b from-teal-600 to-teal-800 p-8 text-white hover:shadow-xl hover:shadow-teal-200 transition-all duration-300 h-full">
+            <div className="relative rounded-2xl bg-gradient-to-b from-amber-500 to-orange-600 p-8 text-white hover:shadow-xl hover:shadow-orange-500/20 transition-all duration-300 h-full">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-sm font-bold mb-6">
                 <TrendingUp className="w-4 h-4" />
                 Most Popular
@@ -607,10 +597,10 @@ function PricingSection() {
               <h3 className="font-display text-2xl font-bold mb-1">Organizers</h3>
               <div className="flex items-baseline gap-1 mb-2">
                 <span className="font-display text-5xl font-extrabold">$59</span>
-                <span className="text-teal-200 text-lg">/month</span>
+                <span className="text-amber-200 text-lg">/month</span>
               </div>
-              <p className="text-teal-200 mb-2">Flat monthly fee. Cancel anytime.</p>
-              <p className="text-sm text-teal-300 mb-8">+ $2.50/day per vendor (collected from vendors, paid monthly)</p>
+              <p className="text-amber-100 mb-2">Flat monthly fee. Cancel anytime.</p>
+              <p className="text-sm text-amber-200 mb-8">+ $2.50/day per vendor (collected from vendors, paid monthly)</p>
               <ul className="space-y-3 mb-8">
                 {[
                   'Intelligent booth mapping with street overlay',
@@ -622,15 +612,15 @@ function PricingSection() {
                   'Priority support',
                   'Custom branding options',
                 ]?.map((item: string, i: number) => (
-                  <li key={i} className="flex items-center gap-3 text-sm text-teal-100">
-                    <CheckCircle2 className="w-5 h-5 text-teal-300 flex-shrink-0" />
+                  <li key={i} className="flex items-center gap-3 text-sm text-amber-100">
+                    <CheckCircle2 className="w-5 h-5 text-white flex-shrink-0" />
                     {item}
                   </li>
                 ))}
               </ul>
               <a
                 href="#get-started"
-                className="block w-full py-3 px-6 text-center font-semibold text-teal-700 bg-white rounded-full hover:bg-teal-50 transition-colors"
+                className="block w-full py-3 px-6 text-center font-semibold text-orange-600 bg-white rounded-full hover:bg-amber-50 transition-colors"
               >
                 Start Free Trial
               </a>
@@ -645,27 +635,26 @@ function PricingSection() {
 /* ──────── Document management showcase ──────── */
 function DocumentSection() {
   return (
-    <section className="py-20 sm:py-28 bg-gray-50">
+    <section className="py-20 sm:py-28 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <FadeIn>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-4">
               <FileText className="w-4 h-4" />
               Document Management
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-6">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 mb-6">
               All documents in <span className="text-blue-600">one place</span>
             </h2>
-            <p className="text-gray-500 text-lg mb-8 leading-relaxed">
+            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
               Vendors upload their permits, insurance, and licenses once. Organizers access everything they need instantly. No more email chains or filing cabinets.
             </p>
 
-            {/* Mock document cards */}
             <div className="space-y-3">
               {[
-                { name: 'Business License', status: 'Verified', color: 'bg-green-100 text-green-700' },
-                { name: 'Food Handler\'s Permit', status: 'Verified', color: 'bg-green-100 text-green-700' },
-                { name: 'Liability Insurance', status: 'Expires in 30 days', color: 'bg-yellow-100 text-yellow-700' },
+                { name: 'Business License', status: 'Verified', color: 'bg-emerald-100 text-emerald-700' },
+                { name: "Food Handler's Permit", status: 'Verified', color: 'bg-emerald-100 text-emerald-700' },
+                { name: 'Liability Insurance', status: 'Expires in 30 days', color: 'bg-amber-100 text-amber-700' },
                 { name: 'Health Department Certificate', status: 'Pending Upload', color: 'bg-gray-100 text-gray-600' },
               ]?.map((doc: any, i: number) => (
                 <motion.div
@@ -674,11 +663,11 @@ function DocumentSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1, duration: 0.4 }}
                   viewport={{ once: true }}
-                  className="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                  className="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100"
                 >
                   <div className="flex items-center gap-3">
-                    <FileText className="w-5 h-5 text-gray-400" />
-                    <span className="font-medium text-sm">{doc?.name ?? ''}</span>
+                    <FileText className="w-5 h-5 text-blue-400" />
+                    <span className="font-medium text-sm text-gray-800">{doc?.name ?? ''}</span>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${doc?.color ?? 'bg-gray-100 text-gray-600'}`}>
                     {doc?.status ?? ''}
@@ -689,11 +678,11 @@ function DocumentSection() {
           </FadeIn>
 
           <FadeIn delay={0.2}>
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-gray-200">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-200/50">
               <div className="aspect-video relative bg-gray-200">
                 <Image
-                  src={DOCUMENTS_IMG}
-                  alt="Person using smartphone app for digital document management at an outdoor market"
+                  src="/images/outdoor-market.jpg"
+                  alt="Outdoor market showcasing the vibrant vendor community that MarketCommand serves"
                   fill
                   className="object-cover"
                 />
@@ -711,9 +700,8 @@ function RoadmapSection() {
   const roadmapItems = [
     {
       phase: 'Available Now',
-      color: 'bg-teal-500',
-      textColor: 'text-teal-700',
-      bgColor: 'bg-teal-50',
+      color: 'from-emerald-500 to-teal-600',
+      dotColor: 'bg-emerald-500',
       items: [
         'Interactive booth mapping with street overlay',
         'Vendor application management',
@@ -725,9 +713,8 @@ function RoadmapSection() {
     },
     {
       phase: 'Coming Soon',
-      color: 'bg-orange-400',
-      textColor: 'text-orange-700',
-      bgColor: 'bg-orange-50',
+      color: 'from-amber-500 to-orange-600',
+      dotColor: 'bg-amber-500',
       items: [
         'In-app payment processing for booth fees',
         'Advanced analytics dashboard',
@@ -739,9 +726,8 @@ function RoadmapSection() {
     },
     {
       phase: 'On the Horizon',
-      color: 'bg-purple-400',
-      textColor: 'text-purple-700',
-      bgColor: 'bg-purple-50',
+      color: 'from-purple-500 to-violet-600',
+      dotColor: 'bg-purple-500',
       items: [
         'AI-powered vendor matching & recommendations',
         'Integrated marketing tools for events',
@@ -753,17 +739,17 @@ function RoadmapSection() {
   ]
 
   return (
-    <section id="roadmap" className="py-20 sm:py-28">
+    <section id="roadmap" className="py-20 sm:py-28 bg-gray-900">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <FadeIn className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-sm font-medium mb-4">
             <Target className="w-4 h-4" />
             Product Roadmap
           </div>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
             Where we&apos;re headed
           </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             MarketCommand is constantly evolving. Here&apos;s a glimpse at what&apos;s already live and what&apos;s coming next.
           </p>
         </FadeIn>
@@ -771,17 +757,17 @@ function RoadmapSection() {
         <div className="grid md:grid-cols-3 gap-6">
           {roadmapItems?.map((phase: any, i: number) => (
             <FadeIn key={i} delay={i * 0.1}>
-              <div className={`rounded-2xl ${phase?.bgColor ?? 'bg-gray-50'} p-6 h-full`}>
+              <div className="rounded-2xl bg-gray-800/50 border border-gray-700/50 p-6 h-full">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className={`w-3 h-3 rounded-full ${phase?.color ?? 'bg-gray-400'}`} />
-                  <h3 className={`font-display text-lg font-bold ${phase?.textColor ?? 'text-gray-700'}`}>
+                  <div className={`w-3 h-3 rounded-full ${phase?.dotColor ?? 'bg-gray-400'}`} />
+                  <h3 className="font-display text-lg font-bold text-white">
                     {phase?.phase ?? ''}
                   </h3>
                 </div>
                 <ul className="space-y-3">
                   {(phase?.items ?? [])?.map((item: string, j: number) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-gray-600">
-                      <CheckCircle2 className={`w-4 h-4 mt-0.5 flex-shrink-0 ${i === 0 ? 'text-teal-500' : 'text-gray-300'}`} />
+                    <li key={j} className="flex items-start gap-2 text-sm text-gray-400">
+                      <CheckCircle2 className={`w-4 h-4 mt-0.5 flex-shrink-0 ${i === 0 ? 'text-emerald-400' : 'text-gray-600'}`} />
                       {item}
                     </li>
                   ))}
@@ -798,11 +784,15 @@ function RoadmapSection() {
 /* ──────── CTA ──────── */
 function CTASection() {
   return (
-    <section id="get-started" className="py-20 sm:py-28 bg-gradient-to-b from-teal-600 to-teal-800 relative overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-white/20 blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-orange-300/20 blur-3xl" />
+    <section id="get-started" className="py-20 sm:py-28 relative overflow-hidden">
+      <div className="absolute inset-0">
+        <Image
+          src="/images/street-market.jpg"
+          alt="Street market background"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/90 to-teal-900/95" />
       </div>
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
@@ -810,7 +800,7 @@ function CTASection() {
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6">
             Ready to transform how you manage markets?
           </h2>
-          <p className="text-teal-100 text-lg max-w-2xl mx-auto mb-10">
+          <p className="text-emerald-100 text-lg max-w-2xl mx-auto mb-10">
             Join the growing community of organizers and vendors who are making market management effortless.
           </p>
 
@@ -819,7 +809,7 @@ function CTASection() {
               href="https://apps.apple.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-semibold text-teal-700 bg-white rounded-full hover:bg-teal-50 transition-all hover:shadow-xl hover:shadow-black/10 group"
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full hover:from-amber-300 hover:to-orange-300 transition-all hover:shadow-xl hover:shadow-amber-400/20 group"
             >
               <Smartphone className="w-5 h-5" />
               I&apos;m an Organizer
@@ -837,7 +827,7 @@ function CTASection() {
             </a>
           </div>
 
-          <p className="text-teal-300 text-sm mt-8">
+          <p className="text-emerald-300 text-sm mt-8">
             Available on iOS. Android coming soon.
           </p>
         </FadeIn>
@@ -849,16 +839,16 @@ function CTASection() {
 /* ──────── Footer ──────── */
 function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-400 py-12">
+    <footer className="bg-gray-950 text-gray-400 py-12">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center">
               <MapPin className="w-4 h-4 text-white" />
             </div>
             <span className="font-display text-lg font-bold">
-              <span className="text-teal-400">Market</span>
-              <span className="text-orange-400">Command</span>
+              <span className="text-white">Market</span>
+              <span className="text-amber-400">Command</span>
             </span>
           </div>
 
@@ -880,7 +870,7 @@ function Footer() {
 /* ──────── Main Landing Page ──────── */
 export function LandingPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Header />
       <HeroSection />
       <SocialProofStrip />
