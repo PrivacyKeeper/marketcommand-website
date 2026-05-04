@@ -97,7 +97,7 @@ function Header() {
             </a>
           ))}
           <a
-            href="#get-started"
+            href="/organizer-signup"
             className="ml-3 px-5 py-2.5 text-sm font-semibold text-gray-900 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full hover:from-amber-300 hover:to-orange-300 transition-all hover:shadow-lg hover:shadow-amber-400/30"
           >
             Get Early Access
@@ -133,7 +133,7 @@ function Header() {
                 </a>
               ))}
               <a
-                href="#get-started"
+                href="/organizer-signup"
                 onClick={() => setMobileOpen(false)}
                 className="block px-4 py-3 mt-2 text-sm font-semibold text-gray-900 text-center bg-gradient-to-r from-amber-400 to-orange-400 rounded-full"
               >
@@ -190,7 +190,7 @@ function HeroSection() {
 
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href="#get-started"
+              href="/organizer-signup"
               className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold text-gray-900 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full hover:from-amber-300 hover:to-orange-300 transition-all hover:shadow-xl hover:shadow-amber-400/25 group"
             >
               Get Early Access
@@ -580,7 +580,7 @@ function PricingSection() {
                 ))}
               </ul>
               <a
-                href="#get-started"
+                href="/vendor-signup"
                 className="block w-full py-3 px-6 text-center font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 rounded-full hover:bg-emerald-500/20 transition-colors"
               >
                 Sign Up Free
@@ -619,7 +619,7 @@ function PricingSection() {
                 ))}
               </ul>
               <a
-                href="#get-started"
+                href="/organizer-signup"
                 className="block w-full py-3 px-6 text-center font-semibold text-orange-600 bg-white rounded-full hover:bg-amber-50 transition-colors"
               >
                 Start Free Trial
