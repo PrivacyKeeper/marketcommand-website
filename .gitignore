@@ -19,3 +19,4 @@ out
 .logs
 *.tsbuildinfo
 nextjs_space/
+.env.local

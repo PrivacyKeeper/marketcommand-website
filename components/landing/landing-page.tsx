@@ -806,7 +806,7 @@ function CTASection() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:support@marketcommand.pro?subject=Organizer%20Early%20Access&body=Hi%20MarketCommand%20team%2C%0A%0AI%27m%20an%20event%20organizer%20and%20I%27d%20like%20to%20join%20the%20early%20access%20list.%0A%0AName%3A%0AEvent%2FMarket%20name%3A%0ALocation%3A%0AEstimated%20number%20of%20vendors%3A%0A%0AThanks%21"
+              href="/organizer-signup"
               className="inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-semibold text-gray-900 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full hover:from-amber-300 hover:to-orange-300 transition-all hover:shadow-xl hover:shadow-amber-400/20 group"
             >
               <Smartphone className="w-5 h-5" />
@@ -814,7 +814,7 @@ function CTASection() {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
-              href="mailto:support@marketcommand.pro?subject=Vendor%20Early%20Access&body=Hi%20MarketCommand%20team%2C%0A%0AI%27m%20a%20vendor%20and%20I%27d%20like%20to%20join%20the%20early%20access%20list.%0A%0AName%3A%0ABusiness%20name%3A%0ALocation%3A%0AWhat%20you%20sell%3A%0A%0AThanks%21"
+              href="/vendor-signup"
               className="inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-semibold text-white bg-white/15 backdrop-blur-sm border border-white/25 rounded-full hover:bg-white/25 transition-all group"
             >
               <Star className="w-5 h-5" />
