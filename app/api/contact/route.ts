@@ -4,7 +4,12 @@ import { Resend } from 'resend'
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Lazy-init to avoid build-time crash when env vars aren't set
+let _resend: Resend | null = null
+function getResend() {
+  if (!_resend) _resend = new Resend(process.env.RESEND_API_KEY || '')
+  return _resend
+}
 const TO = process.env.CONTACT_TO_EMAIL || 'support@marketcommand.pro'
 const FROM = process.env.CONTACT_FROM_EMAIL || 'onboarding@resend.dev'
 
@@ -108,7 +113,7 @@ export async function POST(req: NextRequest) {
 
     const text = rows.map(([k, v]) => `${k}: ${v}`).join('\n')
 
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from: `MarketCommand <${FROM}>`,
       to: [TO],
       replyTo: email,
