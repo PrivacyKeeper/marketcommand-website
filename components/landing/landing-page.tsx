@@ -852,10 +852,13 @@ function Footer() {
             </span>
           </div>
 
-          <div className="flex items-center gap-6 text-sm">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
             <a href="#features" className="hover:text-white transition-colors">Features</a>
             <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
             <a href="#roadmap" className="hover:text-white transition-colors">Roadmap</a>
+            <a href="/legal/terms" className="hover:text-white transition-colors">Terms</a>
+            <a href="/legal/privacy" className="hover:text-white transition-colors">Privacy</a>
+            <a href="/legal/refund" className="hover:text-white transition-colors">Refund Policy</a>
           </div>
 
           <p className="text-sm text-gray-500">

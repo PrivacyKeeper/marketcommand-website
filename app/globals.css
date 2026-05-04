@@ -128,3 +128,39 @@
   .scrollbar-none::-webkit-scrollbar { display: none; }
   .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 }
+
+
+.legal-content h2 {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: rgb(3 7 18);
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+.legal-content p {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.legal-content a {
+  color: rgb(4 120 87);
+  font-weight: 500;
+}
+.legal-content a:hover {
+  text-decoration: underline;
+}
+.legal-content strong {
+  color: rgb(3 7 18);
+  font-weight: 600;
+}
+.legal-content ul, .legal-content ol {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+.legal-content li {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
