@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import Image from 'next/image'
+import { CrossQuoteWidget } from '@/components/landing/cross-quote-widget'
 import {
   MapPin, FileText, Send, LayoutGrid, Shield, Users, ChevronRight,
   CheckCircle2, Zap, Clock, Star, ArrowRight, Menu, X, Smartphone,
@@ -881,6 +882,7 @@ export function LandingPage() {
       <DocumentSection />
       <RoadmapSection />
       <CTASection />
+      <CrossQuoteWidget />
       <Footer />
     </div>
   )
