@@ -16,7 +16,7 @@ export function CrossQuoteWidget() {
   return (
     <div className="pointer-events-none fixed bottom-4 right-4 z-40 flex max-w-[200px] flex-col items-center text-center">
       <Image src="/cross.jpg" alt="Cross" width={64} height={64} className="mb-2 h-16 w-16 object-contain" />
-      <p className="rounded-md bg-black/35 px-2 py-1 text-xs italic leading-snug text-white/85 shadow-lg">"{quote}"</p>
+      <p className="rounded-md bg-black/35 px-2 py-1 text-xs italic leading-snug text-white shadow-lg">"{quote}"</p>
     </div>
   );
 }
